@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hexo</title>
+  <title>hexo搭建个人博客 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="准备工作在开始之前，你需要准备以下：1、需要有一个github账号，没有需要去注册一下2、本地安装node、npm3、安装git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo搭建个人博客">
+<meta property="og:url" content="http://yoursite.com/2018/08/04/new-chapter/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="准备工作在开始之前，你需要准备以下：1、需要有一个github账号，没有需要去注册一下2、本地安装node、npm3、安装git">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-04T09:41:48.725Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="hexo搭建个人博客">
+<meta name="twitter:description" content="准备工作在开始之前，你需要准备以下：1、需要有一个github账号，没有需要去注册一下2、本地安装node、npm3、安装git">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,152 +154,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-mini-program-video" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-new-chapter" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/05/mini-program-video/">小程序video组件poster无效问题</a>
-    </h1>
-  
-
-        
-        <a href="/2018/08/05/mini-program-video/" class="archive-article-date">
-  	<time datetime="2018-08-05T07:15:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在小程序的开发过程中，相信有很多开发童鞋都遇到过关于小程序原生video组件poster设置无效，在模拟效果下刷新一闪而过的问题，其次是在开发中总有一些组件有着超高的层级凌驾于其它组件之上，example：video、canvas等组件，接下来就看看如何解决这些问题。有关于video的使用请点击<a href="https://developers.weixin.qq.com/miniprogram/dev/component/video.html" target="_blank" rel="noopener">https://developers.weixin.qq.com/miniprogram/dev/component/video.html</a></p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>安装官方文档说明和使用如下：</p>
-<pre><code class="bash">&lt;video id=<span class="string">"video"</span> src=<span class="string">"{{video.src}}"</span> objectFit=<span class="string">'contain'</span> controls bindplay=<span class="string">'playVideo'</span> bindended=<span class="string">'endVideo'</span> show-center-play-btn=<span class="string">"{{false}}"</span> custom-cache=<span class="string">"{{false}}"</span> poster=<span class="string">"https://api.vtrois.com/image/750x400"</span> /&gt;
-</code></pre>
-<p>但是效果却不是我想要的，出现的效果如下图<br><!-- <img src="https://img-bbs.csdn.net/upload/201801/02/1514885733_465032.png" /> --><br><img src="https://img-bbs.csdn.net/upload/201801/02/1514885733_465032.png"></p>
-<p>为解决这个问题，试用了几种方法：<br>1、使用cover-view和cover-image。<br>微信官方文档上说明cover-image设置图片,因为video 是原生组件，层级最高，想要放图片在视频上做封面显示时，需要用cover-view才能覆盖在原生组件之上,代码如下：</p>
-<pre><code class="bash">&lt;video id=<span class="string">"myVideo"</span>  class=<span class="string">"video-xx"</span> src=<span class="string">"{{videoUrl}}"</span> controls&gt;
-&lt;cover-view class=<span class="string">"controls"</span>&gt;
-&lt;cover-image class=<span class="string">"img"</span>  src=<span class="string">"{{img}}"</span> /&gt;
-&lt;/cover-view&gt;
-&lt;/video&gt;
-</code></pre>
-<p>但是。。。又出现了新的bug，那就是在video里用cover-view和cover-image，开发工具里正常显示，但是图片不能自适应。</p>
-<p>2、由于video组件的层级之高，我们并不能降低video的层级也不能提升其他组件的层级，因此我们换一种思路去解决这个问题，解决思路：<br>。首先当在页面渲染的时候，使用一张image来代替视频的poster<br>。然后当用户触发点击事件播放视频的时候，隐藏image播放视频<br>实现代码如下，首先是wxml的代码：</p>
-<pre><code class="bash">&lt;view&gt;
-  &lt;view class=<span class="string">"margin_bottom--100"</span> wx:<span class="keyword">for</span>=<span class="string">"{{video.items}}"</span> wx:key=<span class="string">"unique"</span>&gt;
-    &lt;view class=<span class="string">"video-container"</span>&gt;
-        &lt;view  class=<span class="string">"video"</span> data-id=<span class="string">"{{item.id}}"</span> bindtap=<span class="string">"videoPlay"</span> &gt;
-          &lt;video wx:<span class="keyword">if</span>=<span class="string">"{{curr_id == item.id}}"</span> id=<span class="string">"myVideo"</span> style=<span class="string">"width: 750rpx;height: calc(9 * 750rpx / 16);"</span>  src=<span class="string">"{{item.src}}"</span>
-            objectFit=<span class="string">"cover"</span>  show-fullscreen-btn=<span class="string">"{{video.playBtn}}"</span>  controls bindtap=<span class="string">"bindpause"</span>&gt;&lt;/video&gt;
-          &lt;view wx:<span class="keyword">else</span> &gt;
-              &lt;image class=<span class="string">"model-img"</span> style=<span class="string">"width: 750rpx;height: calc(9 * 750rpx / 16);"</span> mode=<span class="string">"aspectFill"</span> src=<span class="string">"{{item.poster}}"</span>&gt;&lt;/image&gt;
-              &lt;view class=<span class="string">"model-btn"</span>&gt;
-                      &lt;view class=<span class="string">"play-icon"</span>&gt;&lt;/view&gt;
-                &lt;/view&gt;
-          &lt;/view&gt;
-        &lt;/view&gt;
-    &lt;/view&gt;
-  &lt;/view&gt;
-&lt;/view&gt;
-
-</code></pre>
-<p>在本地创建json数据,在util文件下面新建一个js文件用来自定义json数据：</p>
-<pre><code class="bash">
-<span class="variable">$module</span>.exports ={
-  videoData: videoData
-}
-<span class="keyword">function</span> <span class="function"><span class="title">videoData</span></span>(){
-  var data={
-    curr_id: <span class="string">''</span>,   //当前打开的视频id
-    items: [
-      {
-        id: 1, src: <span class="string">'https://www1.djicdn.com/assets/images/unicorn/86e445ff7a4ce982d2356189d7986718.mp4'</span>,
-         poster: <span class="string">'http://ow74m25lk.bkt.clouddn.com/shilan.jpg'</span>,
-         playBtn:<span class="literal">false</span>
-      }, {
-        id: 2, src: <span class="string">'https://www1.djicdn.com/assets/images/unicorn/86e445ff7a4ce982d2356189d7986718.mp4'</span>, poster: <span class="string">'http://ow74m25lk.bkt.clouddn.com/shilan.jpg'</span>,
-        playBtn: <span class="literal">false</span>
-      },
-
-    ],
-    //poster:<span class="string">"https://api.vtrois.com/image/750x400"</span>
-  }
-  <span class="built_in">return</span> data;
-}
-</code></pre>
-<p>然后就是js代码：</p>
-<pre><code class="bash">var data = require(<span class="string">'../../utils/data.js'</span>)
-Page({
-  data: {
-    video: data.videoData(),
-  },
-  onReady: <span class="function"><span class="title">function</span></span> () { 
-    this.videoContext = wx.createVideoContext(<span class="string">'myVideo'</span>)
-  },
-  videoPlay(e) {
-    this.setData({
-      curr_id: e.currentTarget.dataset.id,
-    }) //将当前点击的id的值付给curr_id
-    this.videoContext.play() //视频播放
-  }
-})
-</code></pre>
-<p>好了使用这个方法即解决了poster的问题也解决了因某些组件层级过高的问题最后附上实现效果图<br><img src="../../pic/video2.png" alt=""> </p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/08/05/mini-program-video/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-new-chapter" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/04/new-chapter/">hexo搭建个人博客</a>
+    <h1 class="article-title" itemprop="name">
+      hexo搭建个人博客
     </h1>
   
 
@@ -315,6 +181,27 @@ Page({
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -322,16 +209,84 @@ Page({
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/08/04/new-chapter/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/08/04/new-chapter/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2018/08/05/mini-program-video/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          小程序video组件poster无效问题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/04/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -351,79 +306,14 @@ Page({
 
 
 
-
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/04/hello-world/">Hello World</a>
-    </h1>
   
 
-        
-        <a href="/2018/08/04/hello-world/" class="archive-article-date">
-  	<time datetime="2018-08-04T08:24:04.811Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/08/04/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
+  
 
   
+
   
 
 
@@ -446,8 +336,8 @@ Page({
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
