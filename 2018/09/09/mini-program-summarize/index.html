@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Hexo</title>
+  <title>微信小程序开发经验总结 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="前段时间经历了小程序原生框架的开发，一段繁忙工作之后，在这里总结一下开发小程序的心得和体验。 开发前的准备  小程序官网文档：  小程序开发前还是需要先去看一下小程序的官方文档，相关的开发流程和开发工具和组件api相关等在文档中都有详细的介绍，这里就不一一介绍了。值得注意的是，小程序企业用户注册需要认证的企业营业执照，如果有企业公众号可以直接在公众号后台直接注册小程序就可以直接复用公众号的资料，避">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小程序开发经验总结">
+<meta property="og:url" content="http://yoursite.com/2018/09/09/mini-program-summarize/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前段时间经历了小程序原生框架的开发，一段繁忙工作之后，在这里总结一下开发小程序的心得和体验。 开发前的准备  小程序官网文档：  小程序开发前还是需要先去看一下小程序的官方文档，相关的开发流程和开发工具和组件api相关等在文档中都有详细的介绍，这里就不一一介绍了。值得注意的是，小程序企业用户注册需要认证的企业营业执照，如果有企业公众号可以直接在公众号后台直接注册小程序就可以直接复用公众号的资料，避">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-09-09T12:23:10.295Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="微信小程序开发经验总结">
+<meta name="twitter:description" content="前段时间经历了小程序原生框架的开发，一段繁忙工作之后，在这里总结一下开发小程序的心得和体验。 开发前的准备  小程序官网文档：  小程序开发前还是需要先去看一下小程序的官方文档，相关的开发流程和开发工具和组件api相关等在文档中都有详细的介绍，这里就不一一介绍了。值得注意的是，小程序企业用户注册需要认证的企业营业执照，如果有企业公众号可以直接在公众号后台直接注册小程序就可以直接复用公众号的资料，避">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,130 +154,158 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-mini-program-summarize" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      微信小程序开发经验总结
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/09/09/mini-program-summarize/" class="archive-article-date">
+
+        
+        <a href="/2018/09/09/mini-program-summarize/" class="archive-article-date">
   	<time datetime="2018-09-09T12:00:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-09</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/09/09/mini-program-summarize/">微信小程序开发经验总结</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前段时间经历了小程序原生框架的开发，一段繁忙工作之后，在这里总结一下开发小程序的心得和体验。</p>
+<h2 id="开发前的准备"><a href="#开发前的准备" class="headerlink" title="开发前的准备"></a>开发前的准备</h2><p>  小程序官网文档：<br>  小程序开发前还是需要先去看一下小程序的官方文档，相关的开发流程和开发工具和组件api相关等在文档中都有详细的介绍，这里就不一一介绍了。值得注意的是，小程序企业用户注册需要认证的企业营业执照，如果有企业公众号可以直接在公众号后台直接注册小程序就可以直接复用公众号的资料，避免了一些麻烦的流程，如果需要用到微信支付接口则需要另外进行一项微信认证，这个就必需要用到上交300块钱的方式了。。</p>
+<h2 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h2><p>  开发工具是直接用的官方提供的微信小程序开发工具，新建项目需要输入注册小程序时的appid。开发前最好将页面设置为开发环境中不校验请求域名以及TSL版本，因为微信只支持HTTPS协议而且必须指定域名，这让开发者在调试和本地开发的时候及其麻烦，设置后就不会有这个限制，这个是设置只在开发环境中有。</p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/09/09/mini-program-summarize/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/08/05/mini-program-video/" class="archive-article-date">
-  	<time datetime="2018-08-05T07:15:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-05</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/08/05/mini-program-video/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">小程序video组件poster无效问题</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/05/mini-program-video/">小程序video组件poster无效问题</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/08/04/new-chapter/" class="archive-article-date">
-  	<time datetime="2018-08-04T09:18:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/04/new-chapter/">hexo搭建个人博客</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/08/04/hello-world/" class="archive-article-date">
-  	<time datetime="2018-08-04T08:24:04.811Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/04/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -296,8 +328,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
